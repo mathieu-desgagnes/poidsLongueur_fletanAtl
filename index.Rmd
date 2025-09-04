@@ -125,7 +125,7 @@ library(here)
 ```{r model}
 
 # lire les données
-pl.donnee <- read.csv2(here('data','donnee.csv'), row.names=FALSE)
+pl.donnee <- read.csv2(here('data','donnee.csv'))
 
 # ajuster le modèle
 source(here('R','calculerRelationPoidsLongueur.R'))
@@ -133,6 +133,9 @@ pl <- calculerPoidsLongueur(donnees=pl.donnee, rtmb=FALSE)
 # pl <- calculerPoidsLongueur(pl.donnee)
 
 # produire les figures
+# à faire: valider chacun de graphiques
+# à faire: documenter les graphiques
+source(here('R','graphique.R'))
 
 
 ```
