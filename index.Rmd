@@ -136,6 +136,10 @@ pl <- calculerPoidsLongueur(donnees=pl.donnee, rtmb=FALSE)
 # à faire: valider chacun de graphiques
 # à faire: documenter les graphiques
 source(here('R','graphique.R'))
+# à faire: vérifier sur S: si tout est présent ici
+# à faire: tableau de conversion (cm->kg et po->lbs)
+# à faire: tableau de conversion et interval de confiance
+
 
 
 ```
