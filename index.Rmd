@@ -1,31 +1,25 @@
 ---
 title: |
-  "Title Here (*Latin Species Name*)"
-french_title: Titre ici (*Nom latin de l'espèce*)
-year: 2022
+  "Ajustement d'une relation poids-longueur pour le stock de flétan de l'Atlantique (*Hippoglossus hippoglossus*) du golfe du Saint-Laurent (OPANO 4RST)"
+french_title: "Ajustement d'une relation poids-longueur pour le stock de flétan de l'Atlantique (*Hippoglossus hippoglossus*) du golfe du Saint-Laurent (OPANO 4RST)"
+year: 2025
 report_number: nnn
 author: |
-  First. M. Last^1^ and
-  Alex B. Smith^2^
-author_list: "Last, F.M. and Smith, A.B."
-region: Pacific Region
-french_region: Région du Pacifique
+  Mathieu Desgagnés^1^
+author_list: "Desgagnés, M."
+region: Quebec Region
+french_region: Région du Québec
 isbn: ""
 address: |
-  ^1^Pacific Biological Station\
-     Fisheries and Oceans Canada, 3190 Hammond Bay Road\
-     Nanaimo, British Columbia, V9T 6N7, Canada\
-  ^2^Far, far away\
-     Another Galaxy
+  ^1^Maurice Lamontagne Institute\
+     Fisheries and Oceans Canada, Box 1000, 850 route de la mer\
+     Mont-Joli, Quebec, G5H 3Z4, Canada\
 french_address: |
-  ^1^Station biologique du Pacifique\
-     Pêches et Océans Canada, 3190 Hammond Bay Road\
-     Nanaimo, Colombie-Britannique, V9T 6N7, Canada\
-  \smallskip
-  ^2^Loin, très loin\
-     Une autre galaxie
-phone: "(555) 555-5555"
-author_footnote: "Email: First.Author@dfo-mpo.gc.ca | telephone: (250) 756-5555"
+  ^1^Institut Maurice-Lamontagne\
+     Pêches et Océans Canada, C.P. 1000, 850 route de la mer\
+     Mont-Joli, Québec, G5H 3Z4, Canada\
+phone: "(418555) 555-5555"
+author_footnote: "Email: Mathieu.Desgagnes@dfo-mpo.gc.ca | telephone: (418) 509-0879"
 abstract: |
   Here is the abstract text. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 french_abstract: |
