@@ -113,10 +113,10 @@ opts_chunk$set(
 
 ```{r load-libraries, cache=FALSE}
 # add other packages here:
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(tibble)
+# library(dplyr)
+# library(ggplot2)
+# library(readr)
+# library(tibble)
 library(rosettafish)
 library(csasdown)
 library(here)
@@ -136,6 +136,15 @@ pl <- calculerPoidsLongueur(donnees=pl.donnee, rtmb=FALSE)
 # à faire: valider chacun de graphiques
 # à faire: documenter les graphiques
 source(here('R','graphique.R'))
+nomPng <- 'relationMasseLongueur'
+for(i.langue in c('fr','en','bil')){
+    png(filename=here::here('figures', paste0(nomPng,'_',i.langue,'.png')), height=5, width=8, units='in', res=300)
+    par(mfrow=c(1,1), mar=c(4,4,1,1)+0.1)
+    temp <- relationMasseLongueur(mlData=pl$donnees, mlFit=pl$fit, langue=i.langue)
+    dev.off()
+}
+write.csv2(temp, file=file.path(dirOutput,'csv',paste0(nomPng,'.csv')))
+
 # à faire: vérifier sur S: si tout est présent ici
 # à faire: tableau de conversion (cm->kg et po->lbs)
 # à faire: tableau de conversion et interval de confiance

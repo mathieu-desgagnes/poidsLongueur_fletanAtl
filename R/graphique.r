@@ -29,19 +29,24 @@ carteMasseLong <- function(mlData, langue='fr', xlim1=c(-70, -55), ylim1=c(45.5,
 
 
 ## Figure 26: Relation poids-longueur pour les 10 dernières années calculées des données du relevé
-relationMasseLongueur <- function(mlData, mlFit, langue='fr', xlim=NULL, ylim=NULL, legende=TRUE, pct90=FALSE){
+relationMasseLongueur <- function(mlFit, langue='fr', xlim=NULL, ylim=NULL, legende=TRUE, pct90=FALSE){
     switch(langue,
            fr={xlab <- 'Longueur (cm)'; ylab <- 'Poids (kg)'},
            en={xlab <- 'Length (cm)'; ylab <- 'Weight (kg)'},
            bil={xlab <- 'Longueur/Length (cm)'; ylab <- 'Poids/Weight (kg)'})
     if(is.null(xlim)){
-        plot(poidsKg~longueur, mlData, main='', xlab=xlab, ylab=ylab)
+        plot(poidsKg~longueur, mlFit$donnees, main='', xlab=xlab, ylab=ylab)
     }else{
-        plot(poidsKg~longueur, mlData, main='', xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim)
+        plot(poidsKg~longueur, mlFit$donnees, main='', xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim)
     }
-    points(mlData[mlData$source=='ngsl',c('longueur','poidsKg')], pch=21, bg=2)
-    points(mlData[mlData$source=='sgsl',c('longueur','poidsKg')], pch=21, bg=3)
-    curve(exp(mlFit$pl$logA)*x^exp(mlFit$pl$logB)/1000, add=TRUE, col=1, lwd=2)
+  set.seed(1)
+  quel_ordre <- sample(1:nrow(mlFit$donnees),replace=FALSE)
+  points(mlFit$donnees[quel_ordre,c('longueur','poidsKg')], pch=21, bg=ifelse(mlFit$donnees[quel_ordre,'source']=='ngsl',2,3))
+  #points(mlData[mlData$source=='ngsl',c('longueur','poidsKg')], pch=21, bg=2)
+  #points(mlData[mlData$source=='sgsl',c('longueur','poidsKg')], pch=21, bg=3)
+  temp_long <- seq(par('usr')[1], par('usr')[2], by=0.1)
+    lines(temp_long, mlFit$l2p(temp_long), col=1, lwd=2)
+        #curve(exp(mlFit$pl$logA)*x^exp(mlFit$pl$logB)/1000, add=TRUE, col=1, lwd=2)
         ## intervalle où 90% des points >85cm
         ## icGros <- quantile((exp(mlData[,'logPkg'])/exp(mlFit$fitted.values))[mlData$longueur>=84.99], probs=c(0,0.05,0.1,0.9,0.95,1))
         ## curve(exp(mlFit$coefficients[1])*x^mlFit$coefficients[2]*icGros[4], add=TRUE, col=2, lwd=2, xlim=c(85,300))
@@ -56,10 +61,10 @@ relationMasseLongueur <- function(mlData, mlFit, langue='fr', xlim=NULL, ylim=NU
             text(diff(par('usr')[1:2])*0.1 + par('usr')[1], diff(par('usr')[3:4])*0.7 + par('usr')[3], pos=4,
                  labels=bquote("weight" == .(round(exp(mlFit$pl$logA)/1000,9)) %*% "length"^.(round(exp(mlFit$pl$logB),3))))
         }
-        legend('topleft', inset=0.03,
-               legend=paste0(c('NGSL, n=','SGSL, n='),c(sum(mlData$source=='ngsl'),sum(mlData$source=='sgsl'))), lty=c(NA,NA), pch=c(21,21),
-               pt.bg=c(2,3), lwd=c(NA,NA))
     }
+    legend('topleft', inset=0.03,
+           legend=paste0(c('NGSL, n=','SGSL, n='),c(sum(mlData$source=='ngsl'),sum(mlData$source=='sgsl'))), lty=c(NA,NA), pch=c(21,21),
+           pt.bg=c(2,3), lwd=c(NA,NA))
 }
 
 residusML <- function(mlData, mlFit, langue='fr', ylim=NULL){
