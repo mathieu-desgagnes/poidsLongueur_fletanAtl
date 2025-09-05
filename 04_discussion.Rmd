@@ -1,5 +1,13 @@
 # Discussion
 
+
+
+
+
+
+
+
+
 To highlight the power of `csasdown` for French compilation we use the companion translation package [rosettafish](https://github.com/pbs-assess/rosettafish) along with some non-classified herring data. Render the document in French to see how every aspect of the document can be controlled in both languages.
 
 ```{r herring, results='asis', echo=TRUE}

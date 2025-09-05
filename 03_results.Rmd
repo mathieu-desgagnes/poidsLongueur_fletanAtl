@@ -1,5 +1,27 @@
 # Results
 
+## Relation poids-longueur
+
+Une relation poids-longueur (Fig) est calculée à partir de l'ajustement des données de 2145 flétan de l'Atlantique mesurés et pesés dans les relevés au chalut du MPO (nGSL et sGSL) entre 2015 et 2024.
+
+La (fig) indique une distribution des résidus adéquate pou l'ensemble des tailles considérées.
+
+Les (tab) et (tab) donne le poids moyen prédit pouir différentes longueurs de flétan.
+
+## Condition
+
+Des poids observés généralement au-dessus des valeurs estimées pour les flétans de l'Atlantique capturés en eau peu profonde (fig) pourraient être interprétés comme une meilleure condition de ceux-ci.
+Plus de travaux sont nécessaires pour déterminer les facteurs qui pourraient expliquer cette observation.
+
+
+
+
+
+
+
+
+
+
 You can add new knitr code chunks with figure and tables in any section. csasdown links all these `.Rmd` files together into one large file. Keep track of your file order insertion follow the order in `_bookdown.yml`.
 
 Here's another plot for fun:

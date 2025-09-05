@@ -3,6 +3,30 @@
 ## Données
 
 Les données récoltées par deux relevés au chalut indépendants de la pêche sont utilisées, soit les relevés écosystémiques du nord du golfe du Saint-Laurent (ref) et du sud du golfe du Saint-Laurent (ref). 
+Les captures de ces deux relevés ont été mesurées et pesées, et tous les flétans de l'atlantique pêchés entre 2015 et 2024 sont conservés pour les analyses.
+La provenance de ces poissons est présentée à la (fig).
+
+## Analyses
+
+Un modèle à deux paramètres avec un terme d'erreur mulstiplicatif est ajusté aux poids et longueurs exprimés en kilogramme et centimètres, tel que:
+
+où (A) et (B) sont constant et (eps) est le terme d'erreur multiplicatif du poisson (i). 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 To render the document in French, simply open `index.Rmd` and change this:
 
