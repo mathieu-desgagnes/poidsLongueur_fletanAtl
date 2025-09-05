@@ -167,6 +167,16 @@ for(i.langue in c('fr','en','bil')){
 }
 
 
+nomPng <- 'indiceMasseRelative_prof'
+for(i.langue in c('fr','en','bil')){
+    png(filename=here::here('figures', paste0(nomPng,'_',i.langue,'.png')), height=5, width=8, units='in', res=300)
+    par(mfrow=c(1,1), mar=c(4,4,1,3)+0.1)
+    ## temp <- residusML.prof(mlData=objPl$data, mlFit=objPl$fit, probGraph=c(0.025,0.975), langue=i.langue)
+    ## temp <- residusML.prof(mlData=objPl$data, mlFit=objPl$fit, probGraph=c(0.05,0.95), langue=i.langue)
+    residusML.prof(mlFit=pl, probGraph=c(0.1,0.9), langue=i.langue)
+    dev.off()
+}
+
     
     # à faire: vérifier sur S: si tout est présent ici
 # à faire: tableau de conversion (cm->kg et po->lbs)

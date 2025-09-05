@@ -73,7 +73,6 @@ residusML <- function(mlFit, langue='fr', ylim=NULL){
            fr={xlab <- 'Longueur (cm)'; ylab <- 'Résidus'},
            en={xlab <- 'Length (cm)'; ylab <- 'Residuals'},
            bil={xlab <- 'Longueur/Length (cm)'; ylab <- 'Res.'})
-    mlFit$fit$fitted.values
     mlFit$donnees$residuels <- mlFit$donnees[,'logPkg']-mlFit$fit$fitted.values
     mlFit$donnees$fulton <- 100*mlFit$donnees$poidsKg/(mlFit$donnees$longueur^3)
     ##
@@ -100,11 +99,11 @@ residusML.prof <- function(mlFit, probGraph=c(0.025,0.975), langue='fr', profCot
            fr={xlab <- 'Profondeur (m)'; ylab <- 'Indice de masse relative'},
            en={xlab <- 'Depth (m)'; ylab <- 'Relative mass index'},
            bil={xlab <- 'Profondeur/Depth (m)'; ylab <- 'IMR/RMI'})
-    mlFit$fitted.values <- exp(mlFit$pl$logA)*mlFit$donnees$longueur^exp(mlFit$pl$logB)/1000
-    mlFit$donnees$residuels <- mlFit$donnees[,'poidsKg']-mlFit$fitted.values
+    mlFit$donnees$residuels <- mlFit$donnees[,'poidsKg']-exp(mlFit$fit$fitted.values)
     mlFit$donnees$profMoy.classe <- as.numeric(cut(mlFit$donnees$profMoy, breaks=seq(0,500,by=25)))
     mlFit$donnees$longueur.classe <- as.numeric(cut(mlFit$donnees$longueur, breaks=seq(0,200,by=10)))
     mlFit$donnees$fulton <- 100*mlFit$donnees$poidsKg/(mlFit$donnees$longueur^3)
+    mlFit$donnees$condition <- mlFit$donnees[,'poidsKg']/exp(mlFit$fit$fitted.values)
     if(boxplot){
         boxplot(fulton~profMoy.classe, data=mlFit$donnees); abline(h=0.005, col=4)
         boxplot(fulton~profMoy.classe, data=subset(mlFit$donnees, sexe=='1')); abline(h=0.005, col=4)
@@ -122,10 +121,15 @@ residusML.prof <- function(mlFit, probGraph=c(0.025,0.975), langue='fr', profCot
         vioplot(formula=longueur~profMoy.classe, data=mlFit$donnees)
         vioplot(formula=-profMoy~longueur.classe, data=mlFit$donnees)
     }else{
-        plot(mlFit$donnees[,'profMoy'], mlFit$donnees[,'poidsKg']/mlFit$fitted.values,
+        plot(mlFit$donnees[,c('profMoy','condition')],
              xlab=xlab, ylab=ylab, ylim=c(0.5,2), xlim=c(0,500), xaxs='i', cex=0.7)
-        points(mlFit$donnees[mlFit$donnees$source=='ngsl','profMoy'], (exp(mlFit$donnees[,'logPkg'])/mlFit$fitted.values)[mlFit$donnees$source=='ngsl'], pch=21, bg=2, cex=0.7)
-        points(mlFit$donnees[mlFit$donnees$source=='sgsl','profMoy'], (exp(mlFit$donnees[,'logPkg'])/mlFit$fitted.values)[mlFit$donnees$source=='sgsl'], pch=21, bg=3, cex=0.7)
+        #plot(mlFit$donnees[,c('profMoy','fulton')],
+        #     xlab=xlab, ylab=ylab, xlim=c(0,500), xaxs='i', cex=0.7)
+        set.seed(1)
+        quel_ordre <- sample(1:nrow(mlFit$donnees),replace=FALSE)
+        points(mlFit$donnees[quel_ordre,c('profMoy','condition')], pch=21, bg=ifelse(mlFit$donnees[quel_ordre,'source']=='ngsl',2,3), cex=0.7)
+        #points(mlFit$donnees[mlFit$donnees$source=='ngsl','profMoy'], (exp(mlFit$donnees[,'logPkg'])/mlFit$fitted.values)[mlFit$donnees$source=='ngsl'], pch=21, bg=2, cex=0.7)
+        #points(mlFit$donnees[mlFit$donnees$source=='sgsl','profMoy'], (exp(mlFit$donnees[,'logPkg'])/mlFit$fitted.values)[mlFit$donnees$source=='sgsl'], pch=21, bg=3, cex=0.7)
         ## points(mlFit$donnees[mlFit$donnees$source=='ngsl','profMoy'], (exp(mlFit$donnees[,'logPkg'])/mlFit$fitted.values)[mlFit$donnees$source=='ngsl'], pch=21, bg=2, cex=0.7)
     }
     ## sd.temp <- sd((mlFit$fitted.values/exp(mlFit$donnees[,'logPkg'])))
@@ -134,8 +138,8 @@ residusML.prof <- function(mlFit, probGraph=c(0.025,0.975), langue='fr', profCot
     ## axis(4, at=c(1), labels=F, col.ticks=1)
     ##
     ## plus de 100m, sum(mlFit$donnees$profMoy>=99.99)/nrow(mlFit$donnees)
-    ic <- quantile((exp(mlFit$donnees[,'logPkg'])/mlFit$fitted.values), probs=probGraph)
-    icGros <- quantile((exp(mlFit$donnees[,'logPkg'])/mlFit$fitted.values)[mlFit$donnees$profMoy>=99.99], probs=probGraph, na.rm=TRUE)
+    ic <- quantile(mlFit$donnees[,'condition'], probs=probGraph)
+    icGros <- quantile(mlFit$donnees[mlFit$donnees$profMoy>=99.99,'condition'], probs=probGraph, na.rm=TRUE)
     lines(c(100,500), rep(icGros[1],2), col=2)
     lines(c(100,500), rep(icGros[2],2), col=2)
     abline(v=100, col=4)
@@ -145,8 +149,8 @@ residusML.prof <- function(mlFit, probGraph=c(0.025,0.975), langue='fr', profCot
     axis(4, at=icGros[2], labels=names(icGros[2]), col.ticks=2, col.axis=2, cex.axis=0.8, las=1, line=-1)
     ##
     ## moins de 100m, sum(mlFit$donnees$profMoy<99.99)/nrow(mlFit$donnees)
-    ic <- quantile((exp(mlFit$donnees[,'logPkg'])/mlFit$fitted.values), probs=probGraph)
-    icPetit <- quantile((exp(mlFit$donnees[,'logPkg'])/mlFit$fitted.values)[mlFit$donnees$profMoy<99.99], probs=probGraph, na.rm=TRUE)
+    ic <- quantile(mlFit$donnees[,'condition'], probs=probGraph)
+    icPetit <- quantile(mlFit$donnees[mlFit$donnees$profMoy<99.99,'condition'], probs=probGraph, na.rm=TRUE)
     lines(c(0,100), rep(icPetit[1],2), col=2)
     lines(c(0,100), rep(icPetit[2],2), col=2)
     ## moins de 50m, sum(mlFit$donnees$profMoy<=50.01)/nrow(mlFit$donnees)
