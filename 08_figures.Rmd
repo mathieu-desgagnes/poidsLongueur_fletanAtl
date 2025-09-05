@@ -1,0 +1,17 @@
+\newpage
+
+# FIGURES
+
+
+```{r}
+capFr <- "Ajustement d'une relation poids-longueur aux données des relevés du MPO, sexes confondus. La ligne verticale représente la taille minimale au débarquement en vigueur."
+captEn <- "to be completed."
+img.temp <- imager::load.image(here::here('figures','relationMasseLongueur_fr.png'))
+ratio <- dim(img.temp)[2]/dim(img.temp)[1]
+```
+
+```{r relationML, fig.cap = capFr, fig.width=5, fig.asp=ratio, fig.asp=ratio, fig.id = 'relationML'}
+knitr::include_graphics(here::here('figures','relationMasseLongueur_fr.png'))
+```
+
+
