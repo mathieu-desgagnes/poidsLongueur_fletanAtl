@@ -1,4 +1,8 @@
-# Methods
+# Méthodes
+
+## Données
+
+Les données récoltées par deux relevés au chalut indépendants de la pêche sont utilisées, soit les relevés écosystémiques du nord du golfe du Saint-Laurent (ref) et du sud du golfe du Saint-Laurent (ref). 
 
 To render the document in French, simply open `index.Rmd` and change this:
 
